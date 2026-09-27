@@ -6,7 +6,7 @@ export default function Expectations() {
   return (
     <section className="section section-light" id="attentes">
       <div className="container narrow">
-        <h2 className="section-title dark reveal">À quoi devons-nous nous attendre ?</h2>
+        <h2 className="section-title dark reveal">Notre perspective : ce que nous voyons</h2>
         <Verse text={VERSES.deut.text} cite={VERSES.deut.ref} variant="dark" />
         <p className="lead dark-text">À travers ce projet, nous nous attendons à :</p>
         <div className="expect-grid">

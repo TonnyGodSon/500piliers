@@ -3,8 +3,8 @@
 import { useEffect, useState } from 'react';
 
 /**
- * - Ordinateur : bouton flottant « Contribuer » + bouton « Retour en haut »
- * - Mobile : barre fixe en bas « Contribuer par carte » (un clic) + retour en haut
+ * - Ordinateur : bouton flottant « Je contribue » + bouton « Retour en haut »
+ * - Mobile : barre fixe en bas « Je contribue » (vers le paiement par carte) + retour en haut
  * Masqués dans la section « Comment contribuer ? » pour ne pas faire doublon.
  */
 export default function FloatingCta() {
@@ -44,13 +44,13 @@ export default function FloatingCta() {
           ↑
         </button>
         <a href="#contribuer" className="floating-cta" tabIndex={tab}>
-          Contribuer
+          Je contribue
         </a>
       </div>
 
       <div className={`mobile-bar ${visible ? 'visible' : ''}`} aria-hidden={!visible}>
         <a href="#paiement-cb" className="btn btn-gold mobile-bar-cta" tabIndex={tab}>
-          💳 Contribuer par carte
+          Je contribue
         </a>
         <button type="button" className="mobile-bar-top" onClick={toTop} aria-label="Retour en haut de la page" tabIndex={tab}>
           ↑

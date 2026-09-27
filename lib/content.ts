@@ -54,12 +54,7 @@ export const FUNDRAISING_STATS = {
     { label: 'Contributeurs actifs', value: 83 },
     { label: 'Contributeurs passifs', value: 127 },
   ],
-  amounts: [
-    { label: 'Total des engagements', value: 399925 },
-    { label: 'Total récolté', value: 37639.98 },
-    { label: 'Reste à collecter', value: 362285.02 },
-  ],
-  progressRate: 9.41, // en %
+  progressRate: 9.41, // Taux de progression vers l'objectif, en %
 } as const;
 
 export const KEY_FIGURES = [

@@ -79,7 +79,7 @@ export default function Navbar() {
             );
           })}
           <a href="#contribuer" className={`btn btn-gold btn-sm ${active === 'contribuer' ? 'active' : ''}`} onClick={close}>
-            Contribuer
+            Je contribue
           </a>
         </nav>
       </div>

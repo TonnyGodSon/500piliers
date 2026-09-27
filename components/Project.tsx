@@ -9,18 +9,13 @@ export default function Project() {
         <div className="two-cols">
           <div>
             <p>
-              Le projet des <strong>« 500 piliers du Royaume »</strong> a pour objet de mobiliser les contributeurs pour
-              l&apos;acquisition du <strong>campus central de Normandie</strong> dans l&apos;agglomération rouennaise.
+              Le projet des <strong>« 500 piliers du Royaume »</strong> vise à mobiliser des contributeurs pour
+              l&apos;acquisition du <strong>campus central de Normandie</strong>, dans l&apos;agglomération rouennaise.
             </p>
             <p>
-              Depuis 2018, nous sommes à la recherche d&apos;un site capable d&apos;accueillir l&apos;église principale de
-              Normandie dont le site était devenu exigu. Aujourd&apos;hui, le temps est venu pour nous de bâtir un temple
-              plus grand qui réponde à nos exigences.
-            </p>
-            <p>
-              Déménager pour un espace plus grand nous permettra de réunir plus de personnes dans une même salle, faire
-              des activités en parallèle destinées à tous les âges. Bref, avoir un espace plus grand, plus fonctionnel et
-              mieux adapté, s&apos;est imposé à l&apos;équipe dirigeante comme une nécessité absolue.
+              Depuis 2018, nous recherchons un site capable d&apos;accueillir notre église principale. Face à la
+              croissance de nos activités, un espace plus vaste est devenu indispensable pour réunir davantage de
+              personnes et proposer des activités adaptées à tous les âges dans des conditions optimales.
             </p>
           </div>
           <div>

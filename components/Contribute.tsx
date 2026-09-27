@@ -14,9 +14,8 @@ export default function Contribute() {
       <div className="container">
         <h2 className="section-title reveal">Comment contribuer ?</h2>
         <p className="center lead">
-          Rejoignez la mobilisation ! Devenez l&apos;un des 500 Piliers qui écrivent l&apos;histoire de l&apos;expansion
-          de l&apos;Évangile en Normandie, par amour pour cette région. Inscrivez votre nom dans l&apos;édifice que Dieu
-          construit pour toucher des générations.
+          Rejoignez la mobilisation ! Devenez l&apos;un des 500 Piliers de l&apos;expansion de l&apos;Évangile en
+          Normandie.
         </p>
 
         <Simulator />

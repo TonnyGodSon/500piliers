@@ -5,7 +5,7 @@ import { FUNDRAISING_STATS } from '@/lib/content';
 const delay = (i: number) => ({ '--i': i }) as CSSProperties;
 
 export default function FundraisingStats() {
-  const { period, contributors, amounts, progressRate } = FUNDRAISING_STATS;
+  const { period, contributors, progressRate } = FUNDRAISING_STATS;
 
   return (
     <section className="section section-light section-alt" id="avancement">
@@ -26,16 +26,18 @@ export default function FundraisingStats() {
         </div>
 
         <h3 className="fs-group-title">La collecte</h3>
-        <div className="fs-grid fs-grid-4">
-          {amounts.map((s, i) => (
-            <div className="fs-card reveal" key={s.label} style={delay(i)}>
-              <span className="fs-label">{s.label}</span>
-              <AnimatedNumber value={s.value} format="euro" className="fs-value" />
-            </div>
-          ))}
-          <div className="fs-card fs-card-highlight reveal" style={delay(amounts.length)}>
-            <span className="fs-label">Taux de progression</span>
-            <AnimatedNumber value={progressRate} format="percent" className="fs-value" />
+        <div className="fs-progress reveal">
+          <span className="fs-label">Taux de progression vers l&apos;objectif</span>
+          <AnimatedNumber value={progressRate} format="percent" className="fs-progress-value" />
+          <div
+            className="fs-progress-bar"
+            role="progressbar"
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={progressRate}
+            aria-label="Taux de progression vers l'objectif"
+          >
+            <span style={{ '--progress': `${Math.min(progressRate, 100)}%` } as CSSProperties} />
           </div>
         </div>
 
