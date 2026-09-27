@@ -1,4 +1,5 @@
 import Logo from './Logo';
+import CopyButton from './CopyButton';
 import { SITE } from '@/lib/content';
 
 export default function Footer() {
@@ -15,8 +16,8 @@ export default function Footer() {
         </div>
         <div>
           <h4>Contact</h4>
-          <p>📧 <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a></p>
-          <p>💼 Finances : <a href={`mailto:${SITE.financeEmail}`}>{SITE.financeEmail}</a></p>
+          <p>📧 <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a> <CopyButton text={SITE.contactEmail} /></p>
+          <p>💼 Finances : <a href={`mailto:${SITE.financeEmail}`}>{SITE.financeEmail}</a> <CopyButton text={SITE.financeEmail} /></p>
         </div>
         <div>
           <h4>Liens</h4>

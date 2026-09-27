@@ -279,20 +279,205 @@ h1, h2, h3, h4 { line-height: 1.25; margin: 0 0 .6em; }
 .footer a:hover { color: var(--gold-300); }
 .footer-bottom { border-top: 1px solid rgba(255,255,255,.06); margin-top: 3rem; padding: 1.4rem 0; text-align: center; font-size: .85rem; }
 
-.floating-cta {
-  position: fixed; right: 20px; bottom: 20px; z-index: 90; background: var(--gold-gradient); color: var(--navy-900);
-  font-weight: 800; padding: .9em 1.5em; border-radius: 999px; text-decoration: none;
-  box-shadow: 0 10px 30px rgba(0,0,0,.4); opacity: 0; pointer-events: none; transform: translateY(20px); transition: .3s;
-}
-.floating-cta.visible { opacity: 1; pointer-events: auto; transform: none; }
+/* =========================================================
+   AMÉLIORATIONS : animations, navigation, interactions
+   ========================================================= */
 
-/* ---------- Reveal (activé uniquement avec JS) ---------- */
-.js-reveal .reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s ease, transform .7s ease; }
-.js-reveal .reveal.in { opacity: 1; transform: none; }
+/* ---------- Reflet doré sur les boutons (7) ---------- */
+.btn { position: relative; overflow: hidden; isolation: isolate; }
+.btn-gold::after {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, .55) 50%, transparent 70%);
+  transform: translateX(-120%); transition: transform .7s ease;
+}
+.btn-gold:hover::after, .btn-gold:focus-visible::after { transform: translateX(120%); }
+.btn:active { transform: translateY(0) scale(.98); }
+
+/* ---------- Navigation : lien actif + progression (3) ---------- */
+.nav-links a:not(.btn) { position: relative; }
+.nav-links a:not(.btn)::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 2px; border-radius: 2px;
+  background: var(--gold-gradient); transform: scaleX(0); transition: transform .3s ease;
+}
+.nav-links a:not(.btn):hover::after, .nav-links a.active::after { transform: scaleX(1); }
+.nav-links a.active { color: var(--gold-300) !important; opacity: 1 !important; }
+.nav-links .btn.active { box-shadow: 0 0 0 3px rgba(247, 227, 161, .35), 0 10px 25px rgba(212, 169, 74, .35); }
+.read-progress {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 3px; transform-origin: left;
+  background: var(--gold-gradient); transform: scaleX(0); will-change: transform;
+}
+
+/* ---------- Accueil : halo, particules, parallaxe (8) ---------- */
+.hero { --hero-scroll: 0; }
+.hero-bg { transform: translate3d(0, calc(var(--hero-scroll) * .35px), 0); }
+.hero-content { transform: translate3d(0, calc(var(--hero-scroll) * .15px), 0); opacity: calc(1 - var(--hero-scroll) / 900); }
+.hero-logo-wrap { position: relative; display: inline-block; }
+.hero-halo {
+  position: absolute; inset: -12% -8%; z-index: -1; border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(247, 227, 161, .28), rgba(106, 180, 255, .18) 55%, transparent 75%);
+  animation: halo 6s ease-in-out infinite;
+}
+.hero-logo-wrap .hero-logo { position: relative; }
+@keyframes halo { 0%, 100% { opacity: .65; transform: scale(.95); } 50% { opacity: 1; transform: scale(1.06); } }
+.hero-particles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.hero-particles span {
+  position: absolute; bottom: -10px; border-radius: 50%;
+  background: radial-gradient(circle, var(--gold-300), rgba(212, 169, 74, 0) 70%);
+  box-shadow: 0 0 6px rgba(247, 227, 161, .6); opacity: 0;
+  animation-name: rise; animation-timing-function: linear; animation-iteration-count: infinite;
+}
+@keyframes rise {
+  0% { transform: translate3d(0, 0, 0); opacity: 0; }
+  10% { opacity: .9; }
+  80% { opacity: .6; }
+  100% { transform: translate3d(var(--drift), -105vh, 0); opacity: 0; }
+}
+
+/* ---------- Apparition décalée (6) + titres qui se dessinent (9) ---------- */
+/* `translate` (et non `transform`) pour ne pas entrer en conflit avec les effets de survol */
+.js-reveal .reveal {
+  opacity: 0; translate: 0 30px;
+  transition: opacity .7s ease, translate .7s ease, transform .25s, box-shadow .25s, border-color .25s;
+  transition-delay: calc(var(--i, 0) * 90ms);
+}
+.js-reveal .reveal.in { opacity: 1; translate: none; }
+.js-reveal .reveal.revealed { transition-delay: 0s; }
+.js-reveal .section-title.reveal {
+  opacity: 1; translate: none; clip-path: inset(0 100% 0 0 round 12px);
+  transition: clip-path 1s cubic-bezier(.65, 0, .35, 1);
+}
+.js-reveal .section-title.reveal.in { clip-path: inset(0 0 0 0 round 12px); }
+
+/* ---------- Cartes : relief au survol (7) ---------- */
+.pay-card { transition: transform .25s, box-shadow .25s, border-color .25s; }
+.pay-card:hover { transform: translateY(-5px); border-color: rgba(212, 169, 74, .6); box-shadow: 0 25px 55px rgba(5, 8, 30, .5), 0 0 0 1px rgba(212, 169, 74, .25); }
+.fs-card { transition: transform .25s, box-shadow .25s; }
+.fs-card:hover { transform: translateY(-4px); box-shadow: 0 16px 36px rgba(20, 26, 69, .14); }
+.expect-card { transition: transform .25s; }
+.expect-card:hover { transform: translateY(-4px); }
+
+/* ---------- Simulateur (4) ---------- */
+.sim-pop { animation: pop .35s ease; }
+@keyframes pop { 0% { transform: scale(.85); opacity: .4; } 60% { transform: scale(1.06); } 100% { transform: none; opacity: 1; } }
+.sim-cta { margin-top: 1.5rem; }
+
+/* ---------- Boutons Copier (5) ---------- */
+.copy-btn {
+  display: inline-flex; align-items: center; gap: .3em; margin-left: .4rem; padding: .2em .7em;
+  border-radius: 999px; border: 1px solid rgba(212, 169, 74, .6); background: transparent; color: var(--gold-300);
+  font: inherit; font-size: .78rem; font-weight: 600; cursor: pointer; vertical-align: middle; transition: .2s;
+}
+.copy-btn:hover { background: rgba(212, 169, 74, .15); }
+.copy-btn.is-copied { background: var(--gold-gradient); color: var(--navy-900); border-color: transparent; }
+.section-light .copy-btn { color: var(--gold-700); }
+.pledge-form .copy-btn { color: var(--gold-300); }
+.cheque-row { display: flex; align-items: center; justify-content: space-between; gap: .5rem; flex-wrap: wrap; }
+
+/* ---------- Partage (2) ---------- */
+.share { position: relative; display: inline-block; }
+.share-menu {
+  position: absolute; z-index: 50; left: 50%; top: calc(100% + 10px); transform: translateX(-50%);
+  min-width: 210px; padding: .5rem; border-radius: 14px; text-align: left;
+  background: #fff; box-shadow: 0 20px 50px rgba(5, 8, 30, .45); animation: menuIn .2s ease;
+}
+.share-menu a, .share-menu button {
+  display: flex; align-items: center; gap: .6rem; width: 100%; padding: .65rem .8rem; border: 0; border-radius: 10px;
+  background: none; color: var(--text-dark); font: inherit; font-size: .95rem; text-decoration: none; cursor: pointer;
+}
+.share-menu a:hover, .share-menu button:hover { background: #f3eee0; }
+@keyframes menuIn { from { opacity: 0; transform: translate(-50%, -6px); } to { opacity: 1; transform: translate(-50%, 0); } }
+.share-block { text-align: center; margin-top: 2.5rem; }
+.share-block p { color: var(--silver); margin-bottom: .8rem; }
+
+/* ---------- Carte de Normandie (10) ---------- */
+.map-wrap { margin: 1rem 0 1.2rem; }
+.normandie-map { width: 100%; height: auto; overflow: visible; }
+.map-land { stroke: rgba(201, 209, 242, .55); stroke-width: 1.5; stroke-linejoin: round; filter: drop-shadow(0 10px 25px rgba(0, 0, 0, .35)); }
+.map-city { cursor: pointer; outline: none; }
+.map-hit { fill: transparent; }
+.map-dot { transition: transform .25s; transform-box: fill-box; transform-origin: center; }
+.map-city-main .map-dot { stroke: #fff; stroke-width: 1.5; }
+.map-city-connected .map-dot { fill: var(--navy-600); stroke: var(--blue-400); stroke-width: 2; }
+.map-city-future .map-dot { fill: rgba(154, 163, 204, .35); stroke: var(--muted); stroke-width: 1; }
+.map-label {
+  font-family: var(--ff-sans); font-size: 13px; font-weight: 700; fill: #fff; paint-order: stroke;
+  stroke: var(--navy-900); stroke-width: 3px; stroke-linejoin: round; pointer-events: none; transition: opacity .2s;
+}
+.map-city-main .map-label { fill: var(--gold-300); font-size: 15px; }
+.map-city-future .map-label { opacity: 0; font-weight: 500; font-size: 12px; }
+.map-city:hover .map-dot, .map-city:focus-visible .map-dot { transform: scale(1.5); }
+.map-city:hover .map-label, .map-city:focus-visible .map-label { opacity: 1; }
+.map-city:focus-visible .map-dot { stroke: var(--gold-300); stroke-width: 3; }
+.map-pulse { fill: none; stroke: var(--gold-300); stroke-width: 2; transform-box: fill-box; transform-origin: center; animation: pulse 2.4s ease-out infinite; }
+@keyframes pulse { 0% { transform: scale(1); opacity: .9; } 100% { transform: scale(3.2); opacity: 0; } }
+.js-reveal .cities-card:not(.in) .map-city { opacity: 0; }
+.js-reveal .cities-card.in .map-city { animation: cityIn .5s ease both; animation-delay: calc(var(--i, 0) * 60ms + .3s); }
+@keyframes cityIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* ---------- Bulletin en 4 étapes (11) ---------- */
+.wizard-steps { list-style: none; padding: 0; margin: 0 0 .8rem; display: grid; grid-template-columns: repeat(4, 1fr); gap: .5rem; }
+.wizard-steps button {
+  display: flex; flex-direction: column; align-items: center; gap: .35rem; width: 100%;
+  background: none; border: 0; color: var(--muted); font: inherit; font-size: .85rem; cursor: pointer; padding: .2rem;
+}
+.wizard-dot {
+  display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%;
+  border: 2px solid rgba(201, 209, 242, .35); font-weight: 800; transition: .3s;
+}
+.wizard-steps .is-current button { color: var(--gold-300); }
+.wizard-steps .is-current .wizard-dot { background: var(--gold-gradient); color: var(--navy-900); border-color: transparent; box-shadow: 0 0 0 5px rgba(212, 169, 74, .2); }
+.wizard-steps .is-done button { color: var(--silver); }
+.wizard-steps .is-done .wizard-dot { background: var(--navy-600); border-color: var(--gold-500); color: var(--gold-300); }
+.wizard-bar { height: 4px; border-radius: 4px; background: rgba(201, 209, 242, .15); overflow: hidden; margin-bottom: .5rem; }
+.wizard-bar span { display: block; height: 100%; background: var(--gold-gradient); transform-origin: left; transition: transform .45s ease; }
+.wizard-panel { display: none; }
+.wizard-panel.is-active { display: block; animation: stepIn .4s ease; }
+@keyframes stepIn { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: none; } }
+.wizard-panel .step { outline: none; }
+.wizard-panel .radio-row { justify-content: flex-start; }
+.wizard-panel .consent { margin-top: 1.4rem; }
+.wizard-nav { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-top: .5rem; }
+.prefill-note {
+  margin: 1rem 0 0; padding: .7rem 1rem; border-radius: 10px; font-weight: 600;
+  background: rgba(212, 169, 74, .15); border: 1px solid rgba(212, 169, 74, .45); color: var(--gold-300); animation: stepIn .4s ease;
+}
+
+/* ---------- QR code agrandissable (12) ---------- */
+.qr-trigger { position: relative; display: inline-block; padding: 0; border: 0; background: none; cursor: zoom-in; border-radius: 12px; }
+.qr-zoom {
+  position: absolute; left: 50%; bottom: 22px; transform: translate(-50%, 6px); opacity: 0; transition: .25s;
+  padding: .3em .8em; border-radius: 999px; background: var(--navy-900); color: var(--gold-300); font-size: .8rem; font-weight: 700;
+}
+.qr-trigger:hover .qr-zoom, .qr-trigger:focus-visible .qr-zoom { opacity: 1; transform: translate(-50%, 0); }
+.qr-dialog { border: 0; padding: 0; border-radius: 20px; background: #fff; max-width: min(92vw, 640px); box-shadow: var(--shadow); }
+.qr-dialog::backdrop { background: rgba(5, 8, 30, .85); backdrop-filter: blur(4px); }
+.qr-dialog[open] { animation: zoomIn .3s ease; }
+@keyframes zoomIn { from { opacity: 0; transform: scale(.9); } to { opacity: 1; transform: none; } }
+.qr-dialog-inner { padding: 1.5rem; text-align: center; color: var(--text-dark); }
+.qr-dialog-img { width: auto; max-width: 100%; max-height: 70vh; height: auto; margin: 0 auto 1rem; }
+
+/* ---------- Retour en haut + barre mobile (13) ---------- */
+.floating-actions {
+  position: fixed; right: 20px; bottom: 20px; z-index: 90; display: flex; align-items: center; gap: .7rem;
+  opacity: 0; pointer-events: none; transform: translateY(20px); transition: .3s;
+}
+.floating-actions.visible { opacity: 1; pointer-events: auto; transform: none; }
+.floating-cta {
+  background: var(--gold-gradient); color: var(--navy-900); font-weight: 800; padding: .9em 1.5em;
+  border-radius: 999px; text-decoration: none; box-shadow: 0 10px 30px rgba(0,0,0,.4);
+}
+.to-top, .mobile-bar-top {
+  width: 46px; height: 46px; border-radius: 50%; border: 1px solid rgba(212, 169, 74, .6); cursor: pointer;
+  background: rgba(11, 15, 43, .92); color: var(--gold-300); font-size: 1.2rem; font-weight: 800;
+  box-shadow: 0 10px 30px rgba(0,0,0,.35); transition: transform .2s;
+}
+.to-top:hover, .mobile-bar-top:hover { transform: translateY(-3px); }
+.mobile-bar { display: none; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
+  .hero-particles { display: none; }
 }
 
 /* ---------- Responsive ---------- */
@@ -317,16 +502,37 @@ h1, h2, h3, h4 { line-height: 1.25; margin: 0 0 .6em; }
   .two-cols, .expect-grid, .form-grid, .pay-grid, .footer-grid, .sim-results, .features, .fs-grid-3, .fs-grid-4 { grid-template-columns: 1fr; }
   .section { padding: 4rem 0; }
   .pledge-form { padding: 1.5rem; }
+  .wizard-label { font-size: .72rem; }
+  .wizard-dot { width: 32px; height: 32px; }
+
+  /* Barre fixe mobile à la place des boutons flottants */
+  .floating-actions { display: none; }
+  .mobile-bar {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 90; display: flex; gap: .6rem; align-items: center;
+    padding: .7rem 1rem calc(.7rem + env(safe-area-inset-bottom));
+    background: rgba(11, 15, 43, .96); backdrop-filter: blur(8px); box-shadow: 0 -8px 25px rgba(0,0,0,.35);
+    transform: translateY(110%); transition: transform .3s ease;
+  }
+  .mobile-bar.visible { transform: none; }
+  .mobile-bar-cta { flex: 1; padding: .8em 1em; }
+  .footer-bottom { padding-bottom: 5.5rem; }
+  .hero-content { opacity: 1; }
 }
 
 /* ---------- Impression du bulletin ---------- */
 @media print {
   body { background: #fff; color: #000; }
-  .navbar, .hero, .stats, #projet, #campus, #icc-normandie, #attentes, #avancement, #contribuer, .footer, .floating-cta, .form-actions { display: none !important; }
+  .navbar, .hero, .stats, #projet, #campus, #icc-normandie, #attentes, #avancement, #contribuer, .footer,
+  .floating-actions, .mobile-bar, .form-actions, .wizard-steps, .wizard-bar, .wizard-nav, .prefill-note, .copy-btn { display: none !important; }
   #engagement { padding: 0; background: #fff; }
   .pledge-form { background: #fff; color: #000; box-shadow: none; border: 1px solid #000; }
+  .wizard-panel { display: block !important; animation: none !important; }
   .step, .pledge-form .consent { color: #000; }
   .chip { border-color: #000; }
   .chip:has(input:checked) { background: #ddd; }
 }
+
+
+
+
 

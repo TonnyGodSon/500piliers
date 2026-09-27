@@ -22,8 +22,9 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'fr_FR',
     siteName: SITE.name,
-    images: [{ url: LOGO.og, width: 1200, height: 791, alt: 'Les 500 Piliers du Royaume' }],
+    images: [{ url: LOGO.og, width: 1200, height: 630, alt: 'Les 500 Piliers du Royaume' }],
   },
+  appleWebApp: { capable: true, title: '500 Piliers', statusBarStyle: 'black-translucent' },
 };
 
 export const viewport: Viewport = { themeColor: '#0b0f2b' };

@@ -15,11 +15,11 @@ export const SITE = {
 
 /**
  * Logo officiel (seul logo utilisé). Original : public/logo-500-piliers.png (5404 × 3561).
- * Versions redimensionnées du même fichier : logo-500-piliers-800.png (page), og-image.png (partage),
- * icon-512.png et apple-icon.png (icônes).
+ * Déclinaisons générées par `npm run images` (WebP pour la page, PNG pour partage et icônes).
  */
 export const LOGO = {
-  src: '/logo-500-piliers-800.png',
+  small: '/logo-500-piliers-400.webp',
+  large: '/logo-500-piliers-800.webp',
   og: '/og-image.png',
   icon: '/icon-512.png',
   appleIcon: '/apple-icon.png',
@@ -80,17 +80,42 @@ export const CAMPUS_FEATURES = [
 ];
 
 export type CityKind = 'main' | 'connected' | 'future';
-export const CITIES: { name: string; kind: CityKind }[] = [
-  { name: 'Rouen', kind: 'main' },
-  { name: 'Caen', kind: 'main' },
-  { name: 'Évreux', kind: 'main' },
-  { name: 'Le Havre', kind: 'main' },
-  { name: 'Cherbourg', kind: 'connected' },
-  { name: 'Dieppe', kind: 'connected' },
-  { name: 'Saint-Lô', kind: 'connected' },
-  ...['Val-de-Reuil', 'Louviers', 'Vernon', 'Alençon', 'Lisieux', 'Fécamp', 'Bayeux', 'Vire', 'Granville', 'Coutances', 'Avranches', 'Flers', "L'Aigle"].map(
-    (name) => ({ name, kind: 'future' as const }),
-  ),
+/** Villes avec coordonnées GPS (longitude, latitude) pour la carte de Normandie. */
+export const CITIES: { name: string; kind: CityKind; lon: number; lat: number }[] = [
+  { name: 'Rouen', kind: 'main', lon: 1.1, lat: 49.44 },
+  { name: 'Caen', kind: 'main', lon: -0.37, lat: 49.18 },
+  { name: 'Évreux', kind: 'main', lon: 1.15, lat: 49.02 },
+  { name: 'Le Havre', kind: 'main', lon: 0.13, lat: 49.49 },
+  { name: 'Cherbourg', kind: 'connected', lon: -1.62, lat: 49.62 },
+  { name: 'Dieppe', kind: 'connected', lon: 1.08, lat: 49.9 },
+  { name: 'Saint-Lô', kind: 'connected', lon: -1.09, lat: 49.12 },
+  { name: 'Val-de-Reuil', kind: 'future', lon: 1.21, lat: 49.27 },
+  { name: 'Louviers', kind: 'future', lon: 1.17, lat: 49.21 },
+  { name: 'Vernon', kind: 'future', lon: 1.46, lat: 49.09 },
+  { name: 'Alençon', kind: 'future', lon: 0.09, lat: 48.43 },
+  { name: 'Lisieux', kind: 'future', lon: 0.23, lat: 49.15 },
+  { name: 'Fécamp', kind: 'future', lon: 0.38, lat: 49.74 },
+  { name: 'Bayeux', kind: 'future', lon: -0.7, lat: 49.28 },
+  { name: 'Vire', kind: 'future', lon: -0.89, lat: 48.84 },
+  { name: 'Granville', kind: 'future', lon: -1.57, lat: 48.84 },
+  { name: 'Coutances', kind: 'future', lon: -1.44, lat: 49.05 },
+  { name: 'Avranches', kind: 'future', lon: -1.36, lat: 48.68 },
+  { name: 'Flers', kind: 'future', lon: -0.57, lat: 48.75 },
+  { name: "L'Aigle", kind: 'future', lon: 0.63, lat: 48.76 },
+];
+
+/** Contour simplifié de la Normandie (longitude, latitude), sens horaire depuis Le Tréport. */
+export const NORMANDIE_OUTLINE: [number, number][] = [
+  [1.38, 50.07], [1.08, 49.93], [0.71, 49.87], [0.37, 49.77], [0.19, 49.71], [0.07, 49.52],
+  [0.1, 49.48], [0.3, 49.45], [0.23, 49.42], [0.07, 49.36], [-0.12, 49.29], [-0.25, 49.29],
+  [-0.46, 49.34], [-0.75, 49.36], [-1.05, 49.39], [-1.17, 49.35], [-1.2, 49.43], [-1.27, 49.59],
+  [-1.26, 49.69], [-1.45, 49.68], [-1.62, 49.65], [-1.94, 49.72], [-1.85, 49.62], [-1.87, 49.52],
+  [-1.8, 49.37], [-1.66, 49.26], [-1.6, 49.13], [-1.58, 49.03], [-1.61, 48.84], [-1.56, 48.74],
+  [-1.39, 48.66], [-1.51, 48.62], [-1.51, 48.55], [-1.24, 48.54], [-1.07, 48.52], [-0.86, 48.5],
+  [-0.65, 48.47], [-0.42, 48.51], [-0.2, 48.52], [-0.05, 48.38], [0.1, 48.37], [0.35, 48.27],
+  [0.4, 48.19], [0.63, 48.26], [0.8, 48.3], [0.95, 48.49], [0.84, 48.61], [0.93, 48.74],
+  [1.21, 48.76], [1.36, 48.73], [1.44, 48.86], [1.48, 49.05], [1.62, 49.08], [1.72, 49.2],
+  [1.78, 49.28], [1.7, 49.4], [1.72, 49.49], [1.79, 49.7], [1.75, 49.78], [1.63, 49.93], [1.38, 50.07],
 ];
 
 export const LOCAL_CHURCHES = ['ICC Rouen', 'ICC Caen', 'ICC Évreux', 'ICC Le Havre', 'Autre'];

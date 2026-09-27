@@ -29,6 +29,24 @@ public/            Images du site
 | `logo-500-piliers.png`      | **Logo officiel** des 500 Piliers (seul logo utilisé)   |
 | `qr-code-500-piliers.jpg`   | QR code de contribution (bloc masqué s'il est absent)   |
 
+Après tout changement du logo, régénérer ses déclinaisons (WebP pour la page, image de partage,
+icônes de l'application) :
+
+```
+npm run images
+```
+
+## Fonctionnalités
+
+- Compteurs animés, apparition progressive des sections, particules et halo sur l'accueil
+- Menu qui suit la lecture + barre de progression
+- Carte interactive de la Normandie
+- Simulateur relié au bulletin d'engagement (assistant en 4 étapes, imprimable)
+- Boutons Partager (WhatsApp, Facebook, SMS, e-mail) et Copier
+- QR code agrandissable, barre « Contribuer par carte » sur mobile, retour en haut
+- Application installable (manifeste + service worker, consultation hors connexion)
+- Animations désactivées automatiquement si l'utilisateur a réduit les animations de son appareil
+
 ## Avant la mise en ligne
 
 - Définir l'URL finale du site : variable `NEXT_PUBLIC_SITE_URL` (ex. `https://500piliers.fr`).

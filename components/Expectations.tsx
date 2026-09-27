@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import Verse from './Verse';
 import { VERSES } from '@/lib/content';
 
@@ -15,7 +16,7 @@ export default function Expectations() {
               Devenir une famille <strong>1000 fois plus grande</strong> à travers les églises locales.
             </p>
           </div>
-          <div className="expect-card reveal">
+          <div className="expect-card reveal" style={{ '--i': 1 } as CSSProperties}>
             <span className="expect-num">×1000</span>
             <p>
               Pour chaque membre des 500 piliers du Royaume : connaître une augmentation 1000 fois plus importante dans

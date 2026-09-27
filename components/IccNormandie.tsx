@@ -1,4 +1,5 @@
-import { CITIES, SITE } from '@/lib/content';
+import NormandieMap from './NormandieMap';
+import { SITE } from '@/lib/content';
 
 export default function IccNormandie() {
   return (
@@ -34,13 +35,7 @@ export default function IccNormandie() {
           </div>
           <div className="cities-card reveal">
             <h3>Présence en Normandie</h3>
-            <ul className="cities">
-              {CITIES.map((c) => (
-                <li key={c.name} className={`city city-${c.kind}`}>
-                  {c.name}
-                </li>
-              ))}
-            </ul>
+            <NormandieMap />
             <div className="legend">
               <span><i className="dot dot-main" /> Églises locales</span>
               <span><i className="dot dot-connected" /> Familles connectées</span>

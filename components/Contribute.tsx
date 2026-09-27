@@ -1,7 +1,12 @@
+import type { CSSProperties } from 'react';
 import Simulator from './Simulator';
 import QrCode from './QrCode';
 import Verse from './Verse';
+import CopyButton from './CopyButton';
+import ShareButton from './ShareButton';
 import { DONATION_LINKS, VERSES } from '@/lib/content';
+
+const delay = (i: number) => ({ '--i': i }) as CSSProperties;
 
 export default function Contribute() {
   return (
@@ -17,7 +22,7 @@ export default function Contribute() {
         <Simulator />
 
         <div className="pay-grid">
-          <article className="pay-card pay-card-main reveal">
+          <article className="pay-card pay-card-main reveal" id="paiement-cb" style={delay(0)}>
             <div className="pay-head">
               <span className="pay-icon" aria-hidden="true">💳</span>
               <h3>En ligne par carte bancaire</h3>
@@ -43,7 +48,7 @@ export default function Contribute() {
             <QrCode />
           </article>
 
-          <article className="pay-card reveal">
+          <article className="pay-card reveal" style={delay(1)}>
             <div className="pay-head">
               <span className="pay-icon" aria-hidden="true">💶</span>
               <h3>En espèces</h3>
@@ -55,7 +60,7 @@ export default function Contribute() {
             <p className="small muted">Vous pouvez aussi déposer votre bulletin d&apos;engagement sur le stand des 500 Piliers.</p>
           </article>
 
-          <article className="pay-card reveal">
+          <article className="pay-card reveal" style={delay(2)}>
             <div className="pay-head">
               <span className="pay-icon" aria-hidden="true">✍️</span>
               <h3>Par chèque</h3>
@@ -66,19 +71,29 @@ export default function Contribute() {
             <ul className="cheque-list">
               <li>
                 <span>🇫🇷 Si vous payez des impôts en France</span>
-                <strong>À l&apos;ordre de : ICC Rouen</strong>
+                <div className="cheque-row">
+                  <strong>À l&apos;ordre de : ICC Rouen</strong>
+                  <CopyButton text="ICC Rouen" />
+                </div>
               </li>
               <li>
                 <span>🌍 Si vous ne payez pas d&apos;impôts en France</span>
-                <strong>À l&apos;ordre de : ICCC</strong>
+                <div className="cheque-row">
+                  <strong>À l&apos;ordre de : ICCC</strong>
+                  <CopyButton text="ICCC" />
+                </div>
               </li>
             </ul>
           </article>
         </div>
 
         <Verse text={VERSES.corinth.text} cite={VERSES.corinth.ref} className="center" />
+
+        <div className="share-block">
+          <p>Faites connaître le projet autour de vous :</p>
+          <ShareButton className="btn btn-gold" />
+        </div>
       </div>
     </section>
   );
 }
-

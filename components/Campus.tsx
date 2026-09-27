@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { CAMPUS_FEATURES } from '@/lib/content';
 
 export default function Campus() {
@@ -7,8 +8,8 @@ export default function Campus() {
         <p className="eyebrow">Le projet d&apos;acquisition</p>
         <h2 className="section-title dark reveal">Nous voulons que ce nouveau campus soit un lieu de vie</h2>
         <div className="features">
-          {CAMPUS_FEATURES.map((f) => (
-            <article className="feature reveal" key={f.title}>
+          {CAMPUS_FEATURES.map((f, i) => (
+            <article className="feature reveal" key={f.title} style={{ '--i': i % 4 } as CSSProperties}>
               <span className="feature-icon" aria-hidden="true">{f.icon}</span>
               <h3>{f.title}</h3>
               <p>{f.text}</p>

@@ -11,6 +11,7 @@ import PledgeForm from '@/components/PledgeForm';
 import Footer from '@/components/Footer';
 import FloatingCta from '@/components/FloatingCta';
 import RevealObserver from '@/components/RevealObserver';
+import ServiceWorkerRegister from '@/components/ServiceWorkerRegister';
 import { DONATION_LINKS, SITE } from '@/lib/content';
 
 const jsonLd = {
@@ -41,6 +42,7 @@ export default function HomePage() {
       <Footer />
       <FloatingCta />
       <RevealObserver />
+      <ServiceWorkerRegister />
     </>
   );
 }

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { PILIER_AMOUNT, formatEuro, round2 } from '@/lib/content';
+import { prefillPledge } from '@/lib/events';
 
 const MIN = 1;
 const MAX = 50;
@@ -35,19 +36,27 @@ export default function Simulator() {
       </div>
       <div className="sim-results" aria-live="polite">
         <div>
-          <span>{formatEuro(total)}</span>
+          <span key={`t${total}`} className="sim-pop">
+            {formatEuro(total)}
+          </span>
           <small>au total</small>
         </div>
         <div>
-          <span>{formatEuro(round2(total / 12))}</span>
+          <span key={`m${total}`} className="sim-pop">
+            {formatEuro(round2(total / 12))}
+          </span>
           <small>par mois sur 12 mois</small>
         </div>
         <div>
-          <span>{formatEuro(total / 4)}</span>
+          <span key={`q${total}`} className="sim-pop">
+            {formatEuro(total / 4)}
+          </span>
           <small>par trimestre</small>
         </div>
       </div>
+      <button type="button" className="btn btn-gold sim-cta" onClick={() => prefillPledge(total)}>
+        Je m&apos;engage pour {formatEuro(total)}
+      </button>
     </div>
   );
 }
-
