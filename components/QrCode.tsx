@@ -3,7 +3,9 @@
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 
-const SRC = '/qr-code-500-piliers.jpg';
+import { asset } from '@/lib/paths';
+
+const SRC = asset('/qr-code-500-piliers.jpg');
 
 /**
  * QR code de contribution (public/qr-code-500-piliers.jpg).

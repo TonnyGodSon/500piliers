@@ -2,8 +2,11 @@
  * - Pages : réseau d'abord (contenu toujours à jour), cache en secours hors connexion
  * - Fichiers statiques (_next, images, polices) : cache d'abord
  */
-const CACHE = '500piliers-v1';
-const PRECACHE = ['/', '/manifest.webmanifest', '/logo-500-piliers-800.webp', '/logo-500-piliers-400.webp'];
+const CACHE = '500piliers-v2';
+// Chemins relatifs à l'emplacement du service worker (fonctionne aussi sous /500piliers/ sur GitHub Pages)
+const BASE = new URL('./', self.location).pathname;
+const HOME = BASE;
+const PRECACHE = [HOME, `${BASE}manifest.webmanifest`, `${BASE}logo-500-piliers-800.webp`, `${BASE}logo-500-piliers-400.webp`];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE).then((c) => c.addAll(PRECACHE)).then(() => self.skipWaiting()));
@@ -32,12 +35,12 @@ self.addEventListener('fetch', (event) => {
           caches.open(CACHE).then((c) => c.put(request, copy));
           return res;
         })
-        .catch(() => caches.match(request).then((r) => r || caches.match('/'))),
+        .catch(() => caches.match(request).then((r) => r || caches.match(HOME))),
     );
     return;
   }
 
-  if (/\.(?:js|css|webp|png|jpg|jpeg|svg|woff2?)$/.test(url.pathname) || url.pathname.startsWith('/_next/')) {
+  if (/\.(?:js|css|webp|png|jpg|jpeg|svg|woff2?)$/.test(url.pathname) || url.pathname.includes('/_next/')) {
     event.respondWith(
       caches.match(request).then(
         (cached) =>

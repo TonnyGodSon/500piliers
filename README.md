@@ -53,6 +53,26 @@ npm run images
 
 ## Hébergement
 
+### GitHub Pages (automatique)
+
+Chaque envoi sur la branche `main` met le site en ligne automatiquement
+(workflow `.github/workflows/deploy.yml`) :
+
+👉 **https://tonnygodson.github.io/500piliers/**
+
+### Versions
+
+Les versions sont marquées par des étiquettes Git (`v1.0.0`, `v2.0.0`…). Envoyer une étiquette
+crée automatiquement une **Release** GitHub avec les notes de `CHANGELOG.md` et le site prêt à héberger (zip) :
+
+```
+npm version 2.1.0 --no-git-tag-version   # puis compléter CHANGELOG.md
+git commit -am "Version 2.1.0"
+git tag -a v2.1.0 -m "Version 2.1.0"
+git push --follow-tags
+```
+
+### Autres hébergeurs
 - **Vercel / Netlify** : commande `npm run build`, dossier de sortie `out`.
 - **OVH / FTP / GitHub Pages** : envoyer le contenu du dossier `out/`.
 

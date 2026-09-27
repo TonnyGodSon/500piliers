@@ -2,6 +2,7 @@
  * Contenu éditorial centralisé : modifiez ce fichier pour mettre à jour le site
  * sans toucher aux composants.
  */
+import { asset } from './paths';
 
 export const SITE = {
   name: 'Les 500 Piliers du Royaume',
@@ -18,11 +19,11 @@ export const SITE = {
  * Déclinaisons générées par `npm run images` (WebP pour la page, PNG pour partage et icônes).
  */
 export const LOGO = {
-  small: '/logo-500-piliers-400.webp',
-  large: '/logo-500-piliers-800.webp',
-  og: '/og-image.png',
-  icon: '/icon-512.png',
-  appleIcon: '/apple-icon.png',
+  small: asset('/logo-500-piliers-400.webp'),
+  large: asset('/logo-500-piliers-800.webp'),
+  og: asset('/og-image.png'),
+  icon: asset('/icon-512.png'),
+  appleIcon: asset('/apple-icon.png'),
   ratio: 3561 / 5404,
 } as const;
 

@@ -22,7 +22,8 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'fr_FR',
     siteName: SITE.name,
-    images: [{ url: LOGO.og, width: 1200, height: 630, alt: 'Les 500 Piliers du Royaume' }],
+    // Chemin relatif à metadataBase (qui contient déjà le préfixe du site)
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Les 500 Piliers du Royaume' }],
   },
   appleWebApp: { capable: true, title: '500 Piliers', statusBarStyle: 'black-translucent' },
 };
