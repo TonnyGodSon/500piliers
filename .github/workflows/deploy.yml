@@ -20,9 +20,13 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NEXT_TELEMETRY_DISABLED: 1
-      # Le site est servi sous https://<utilisateur>.github.io/<dépôt>/
-      NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
-      NEXT_PUBLIC_SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
+      # Nom de domaine personnalisé (facultatif) : variable de dépôt CUSTOM_DOMAIN
+      # (Settings → Secrets and variables → Actions → Variables), ex. « 500piliers.fr ».
+      # - Sans domaine : site servi sous https://<utilisateur>.github.io/<dépôt>/ (préfixe /<dépôt>)
+      # - Avec domaine : site servi à la racine https://<domaine>/ (aucun préfixe)
+      CUSTOM_DOMAIN: ${{ vars.CUSTOM_DOMAIN }}
+      NEXT_PUBLIC_BASE_PATH: ${{ vars.CUSTOM_DOMAIN == '' && format('/{0}', github.event.repository.name) || '' }}
+      NEXT_PUBLIC_SITE_URL: ${{ vars.CUSTOM_DOMAIN != '' && format('https://{0}', vars.CUSTOM_DOMAIN) || format('https://{0}.github.io/{1}', github.repository_owner, github.event.repository.name) }}
     steps:
       - uses: actions/checkout@v4
 
@@ -40,7 +44,13 @@ jobs:
         run: npm ci
 
       - name: Build du site statique
-        run: npm run build
+        run: |
+          echo "Préfixe : '${NEXT_PUBLIC_BASE_PATH}' – URL : ${NEXT_PUBLIC_SITE_URL}"
+          npm run build
+
+      - name: Fichier CNAME (nom de domaine personnalisé)
+        if: ${{ vars.CUSTOM_DOMAIN != '' }}
+        run: echo "$CUSTOM_DOMAIN" > out/CNAME
 
       - name: Envoi du site
         uses: actions/upload-pages-artifact@v3
