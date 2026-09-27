@@ -31,10 +31,10 @@ jobs:
           node-version: 22
           cache: npm
 
+      # Prérequis (une seule fois) : Settings → Pages → Source : « GitHub Actions »
+      # (le jeton automatique des workflows n'a pas le droit d'activer Pages lui-même)
       - name: Configuration de GitHub Pages
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
 
       - name: Installation des dépendances
         run: npm ci
