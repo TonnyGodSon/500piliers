@@ -27,7 +27,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="footer-bottom">
-        <p>© {new Date().getFullYear()} {SITE.org} · Ensemble au service du Roi.</p>
+        <p>© {new Date().getFullYear()} {SITE.org}</p>
       </div>
     </footer>
   );
