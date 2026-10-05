@@ -22,7 +22,7 @@ export default function Footer() {
         <div>
           <h4>Liens</h4>
           <p><a href={SITE.mainChurchUrl} target="_blank" rel="noopener noreferrer">Impact Centre Chrétien</a></p>
-          <p><a href="#contribuer">Contribuer</a></p>
+          <p><a href="#contribuer">Je contribue</a></p>
           <p><a href="#engagement">Bulletin d&apos;engagement</a></p>
         </div>
       </div>

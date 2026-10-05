@@ -135,7 +135,7 @@ h1, h2, h3, h4 { line-height: 1.25; margin: 0 0 .6em; }
 .dark-text { color: var(--text-dark); }
 .two-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
 .align-center { align-items: center; }
-.highlight-card { background: rgba(212, 169, 74, .1); border: 1px solid rgba(212, 169, 74, .4); border-radius: var(--radius); padding: 1.4rem 1.6rem; margin-bottom: 1.2rem; }
+.highlight-card { background: rgba(212, 169, 74, .1); border: 1px solid rgba(212, 169, 74, .4); border-radius: var(--radius); padding: 1.4rem 1.6rem; margin-bottom: var(--space-p); }
 .highlight-card p { margin: 0; }
 .signature { font-family: var(--ff-serif); font-size: 1.2rem; color: var(--gold-300); }
 
